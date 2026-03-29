@@ -25,7 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Make the actual API call
         try {
-            const response = await fetch('/api/analyze', {
+            // Determine API URL based on environment
+            const isGithubPages = window.location.hostname === 'blog.jaytiwari.me';
+            const apiUrl = isGithubPages 
+                ? 'https://url-checker-xi.vercel.app/api/analyze' 
+                : '/api/analyze';
+
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url })
